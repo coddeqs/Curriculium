@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyInstaller build outputs and executables
+build/
+dist/
+*.spec
+CurriculiumAI.exe
+
+# Environment & Virtual Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Saved outputs / temp cache
+data/cached_jobs.json
+data/saved_resumes/*.pdf

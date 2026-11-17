@@ -1,0 +1,181 @@
+{
+  "personal": {
+    "name": "Davi Marçal Silva Araújo",
+    "headline": "Desenvolvedor de Software Full Stack | React, Node.js, Flutter & Inteligência Artificial",
+    "location": "Brasília - DF, Brasil",
+    "phone": "(61) 99948-7325",
+    "email": "davimarcal200@gmail.com",
+    "github": "https://github.com/coddeqs",
+    "github_username": "coddeqs",
+    "linkedin": "https://linkedin.com/in/davi-marcal-dev",
+    "portfolio": "https://github.com/coddeqs"
+  },
+  "summary": "Desenvolvedor de Software com sólida atuação prática na criação de aplicações web e mobile modernas, painéis administrativos complexos e integração com Inteligência Artificial Generativa. Experiência destacada com React 19, TypeScript/JavaScript, Node.js, Express, Tailwind CSS, Flutter e Google GenAI SDK (Gemini). Apaixonado por código limpo, arquitetura reativa, performance e design minimalista, cursando Ciência da Computação.",
+  "education": [
+    {
+      "institution": "Centro Universitário Estácio - Taguatinga/DF",
+      "degree": "Bacharelado em Ciência da Computação",
+      "period": "03/2023 – Presente (Conclusão Prevista: 2026)",
+      "status": "Em andamento"
+    },
+    {
+      "institution": "Centro de Ensino Médio Setor Leste de Brasília",
+      "degree": "Ensino Médio Completo",
+      "period": "2020 – 2022",
+      "status": "Concluído"
+    }
+  ],
+  "skills": {
+    "frontend": [
+      "React 19",
+      "TypeScript",
+      "JavaScript (ES6+)",
+      "Vite",
+      "Tailwind CSS v4",
+      "HTML5 Semântico",
+      "CSS3 Moderno",
+      "Motion (Framer Motion)",
+      "Lucide Icons",
+      "CodeMirror",
+      "Responsive Web Design",
+      "SPA Architecture"
+    ],
+    "backend_and_apis": [
+      "Node.js",
+      "Express.js",
+      "RESTful APIs",
+      "JSON Schema",
+      "CORS & Security Headers",
+      "Dotenv",
+      "Integração de Webhooks",
+      "Asaas API (Pagamentos)",
+      "NFe / DANFE Modals"
+    ],
+    "mobile": [
+      "Flutter",
+      "Dart",
+      "Mobile UI Development",
+      "Cross-platform Apps"
+    ],
+    "ai_and_data": [
+      "Google GenAI SDK (@google/genai)",
+      "Gemini 2.5/Flash APIs",
+      "Engenharia de Prompt",
+      "Assistentes Inteligentes Integrados",
+      "Transposição e Análise de Dados"
+    ],
+    "devops_and_tools": [
+      "Git & GitHub",
+      "Vite Build Pipeline",
+      "SEO Técnico (Sitemap, Google Search Console)",
+      "Postman",
+      "Linux / Bash",
+      "LMS Moodle (Arquitetura e customização)"
+    ]
+  },
+  "projects": [
+    {
+      "id": "royal-tattoo",
+      "name": "Royal Tattoo Supply & Studio",
+      "role": "Desenvolvedor Full Stack",
+      "category": "E-commerce & Painel Admin",
+      "stack": ["React 19", "Tailwind CSS", "Vite", "Observable Pattern"],
+      "highlights": [
+        "Painel administrativo com 11 módulos (produtos, pedidos, estoque, cupons) e modal de DANFE NFe."
+      ],
+      "url": "https://github.com/coddeqs/Royaltattoosuply"
+    },
+    {
+      "id": "datechnologia",
+      "name": "DA Technologia & Gestão",
+      "role": "Desenvolvedor Front-end & IA",
+      "category": "Hub de Projetos e Métricas",
+      "stack": ["React 19", "TypeScript", "Tailwind CSS", "@google/genai"],
+      "highlights": [
+        "Plataforma de gestão técnica com integração Gemini API, prontuário de projetos e SEO."
+      ],
+      "url": "https://github.com/coddeqs/Datechnologia"
+    },
+    {
+      "id": "iv-relojoalheria",
+      "name": "IV Relojoalheria",
+      "role": "Desenvolvedor Full Stack",
+      "category": "E-commerce & API REST",
+      "stack": ["React", "Node.js", "Express", "Tailwind CSS"],
+      "highlights": [
+        "Backend Node.js/Express com rotas RESTful, catálogo dinâmico e carrinho persistente."
+      ],
+      "url": "https://github.com/coddeqs/Iv-Relojoalheria"
+    },
+    {
+      "id": "gorunn-ecosystem",
+      "name": "GoRunn (Web & Mobile)",
+      "role": "Desenvolvedor Web & Mobile",
+      "category": "App Mobile & Painel Web",
+      "stack": ["Flutter", "Dart", "React", "CodeMirror"],
+      "highlights": [
+        "Aplicativo multiplataforma em Flutter/Dart integrado a painel web com editor CodeMirror."
+      ],
+      "url": "https://github.com/coddeqs/projeto_gorunn"
+    },
+    {
+      "id": "araujo-pericia",
+      "name": "Araújo Perícia",
+      "role": "Desenvolvedor Front-end",
+      "category": "Plataforma Web",
+      "stack": ["React 19", "Vite", "Tailwind CSS"],
+      "highlights": [
+        "Aplicação web responsiva com React 19 e componentes reutilizáveis."
+      ],
+      "url": "https://github.com/coddeqs/araujo-pericia"
+    }
+  ],
+  "experience": [
+    {
+      "company": "GlobalWeb (Projetos MPMA e COPASA)",
+      "role": "Técnico N1 Pleno",
+      "period": "04/2026 – Atual",
+      "location": "Brasília/DF",
+      "description": "Suporte especializado N1 via ITSM focado em soluções ágeis e cumprimento rigoroso de SLAs. Diagnóstico de hardware, software, redes e acessos remotos (VPN), reduzindo o transbordo para o N2."
+    },
+    {
+      "company": "DA Technologia / Projetos Autônomos",
+      "role": "Desenvolvedor de Software Full Stack",
+      "period": "01/2023 – Atual",
+      "location": "Brasília/DF",
+      "description": "Desenvolvimento de aplicações web, mobile e integrações com APIs REST para clientes e projetos próprios."
+    },
+    {
+      "company": "Divisão de Suporte a TI Corporativa",
+      "role": "Estagiário de Suporte a TI Corporativa",
+      "period": "04/2024",
+      "location": "Brasília/DF",
+      "description": "Suporte técnico corporativo na resolução de incidentes de TI e criação/estruturação de processos operacionais para otimizar a resolução de problemas internos."
+    },
+    {
+      "company": "SESI SENAI - SIG",
+      "role": "Estagiário de TI (Suporte Técnico)",
+      "period": "Anterior",
+      "location": "Brasília/DF",
+      "description": "Manutenção de redes, atendimento a chamados, controle de patrimônio de TI e rotinas administrativas."
+    },
+    {
+      "company": "Araújo Cia Tecnologia Logística e Investimentos LTDA",
+      "role": "Auxiliar / Análise e Transposição de Dados",
+      "period": "10/2021 – 11/2022",
+      "location": "Brasília/DF",
+      "description": "Estruturação, auditoria e transposição de bases de dados operacionais e logísticas."
+    }
+  ],
+  "certifications": [
+    "Certified Associate in Scrum Fundamental",
+    "ISO 27.001 & ISO 27.000 (Segurança da Informação)",
+    "ITIL V4 (Em preparação para exame)",
+    "Gestão de Projetos e Planejamentos SCRUM (SENAI)"
+  ],
+  "languages": [
+    { "name": "Português", "level": "Nativo" },
+    { "name": "Inglês", "level": "Técnico / Intermediário (leitura fluente de documentações e escrita)" },
+    { "name": "Espanhol", "level": "Básico" }
+  ]
+}

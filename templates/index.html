@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curriculium AI — Radar de Vagas TI & Resume Tailor</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              900: '#1e3a8a',
+            },
+            surface: {
+              800: '#1e293b',
+              850: '#172033',
+              900: '#0f172a',
+              950: '#020617',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+    /* A4 Paper Simulation */
+    .a4-sheet {
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-surface-950 text-slate-100 min-h-screen flex flex-col antialiased font-sans selection:bg-brand-500 selection:text-white">
+
+  <!-- ================= TOP NAVBAR ================= -->
+  <header class="border-b border-slate-800 bg-surface-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-brand-500/25">
+          <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-slate-100 to-brand-400 bg-clip-text text-transparent">Curriculium AI</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 px-2 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-800/60">TI Remoto Ativo</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Varredor de Vagas Confiáveis & Adaptador de Currículo</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+        <button onclick="switchTab('tab-hunter')" id="btn-tab-hunter" class="tab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold flex items-center gap-2 transition bg-brand-600 text-white shadow-md">
+          <i data-lucide="radar" class="w-4 h-4"></i>
+          <span>Vagas Remotas</span>
+        </button>
+        <button onclick="switchTab('tab-tailor')" id="btn-tab-tailor" class="tab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold flex items-center gap-2 transition text-slate-400 hover:text-slate-200">
+          <i data-lucide="file-check-2" class="w-4 h-4"></i>
+          <span>Adequar Currículo</span>
+        </button>
+        <button onclick="switchTab('tab-profile')" id="btn-tab-profile" class="tab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold flex items-center gap-2 transition text-slate-400 hover:text-slate-200">
+          <i data-lucide="user" class="w-4 h-4"></i>
+          <span>Perfil Mestre</span>
+        </button>
+      </nav>
+
+      <!-- Profile Quick Link -->
+      <div class="hidden md:flex items-center gap-2.5 text-xs text-slate-300 border border-slate-800 bg-surface-850 px-3 py-1.5 rounded-full">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-semibold text-slate-200">Davi Marçal</span>
+        <span class="text-slate-600">•</span>
+        <a href="https://github.com/coddeqs" target="_blank" class="text-brand-400 hover:text-brand-300 flex items-center gap-1 font-mono">
+          <i data-lucide="github" class="w-3.5 h-3.5"></i>
+          @coddeqs
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+    <!-- ======================================================== -->
+    <!-- TAB 1: RADAR DE VAGAS REMOTAS CONFIÁVEIS -->
+    <!-- ======================================================== -->
+    <section id="tab-hunter" class="tab-content space-y-6">
+      
+      <!-- Search & Filters Container (Harmonioso e Alinhado) -->
+      <div class="bg-surface-900 p-6 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden">
+        <div class="absolute -right-12 -top-12 w-64 h-64 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
+          <div>
+            <h1 class="text-2xl font-black text-white flex items-center gap-2.5">
+              <i data-lucide="globe-2" class="w-6 h-6 text-emerald-400"></i>
+              Vagas Remotas de TI em Fontes Confiáveis
+            </h1>
+            <p class="text-xs text-slate-400 mt-1">
+              Varredura ativa em <b>GitHub Vagas Brasil</b> (FrontendBR, Backend-BR, React-Brasil, FlutterBR), <b>Arbeitnow</b>, <b>Remotive</b>, <b>Jobicy</b> e <b>Himalayas</b>. Links oficiais de candidatura disponíveis em cada vaga.
+            </p>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-2 text-[11px] text-slate-400">
+            <span class="px-2.5 py-1 rounded-lg bg-surface-950 border border-slate-800 flex items-center gap-1">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+              Fontes Verificadas
+            </span>
+            <span class="px-2.5 py-1 rounded-lg bg-surface-950 border border-slate-800 flex items-center gap-1">
+              <i data-lucide="link-2" class="w-3.5 h-3.5 text-brand-400"></i>
+              Links Diretos
+            </span>
+          </div>
+        </div>
+
+          <!-- Filter Controls Bar -->
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+          
+          <!-- Search input -->
+          <div class="sm:col-span-4 relative">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3.5 text-slate-400"></i>
+            <input type="text" id="search-input" placeholder="Buscar por tecnologia (React, Node, Flutter, Frontend, Júnior)..."
+              class="w-full pl-10 pr-4 py-2.5 bg-surface-950 border border-slate-700/80 rounded-xl text-xs sm:text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+          </div>
+
+          <!-- Portal Filter (LinkedIn, Gupy, Programathor, GitHub) -->
+          <div class="sm:col-span-3">
+            <select id="portal-select" onchange="triggerScan()" class="w-full bg-surface-950 border border-slate-700/80 rounded-xl px-3 py-2.5 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-brand-500 font-medium">
+              <option value="todos">🌐 Todos os Portais (LinkedIn, Gupy...)</option>
+              <option value="linkedin">💼 LinkedIn Jobs</option>
+              <option value="gupy">🚀 Portal Gupy</option>
+              <option value="programathor">⚡ Programathor</option>
+              <option value="github">🐙 GitHub Vagas BR</option>
+            </select>
+          </div>
+
+          <!-- Location Filter (Brasília / Remoto / Todas) -->
+          <div class="sm:col-span-3">
+            <select id="location-select" onchange="triggerScan()" class="w-full bg-surface-950 border border-slate-700/80 rounded-xl px-3 py-2.5 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-brand-500 font-medium">
+              <option value="todos">🇧🇷 Brasil (Remoto + DF)</option>
+              <option value="brasilia">📍 Brasília / DF</option>
+              <option value="remoto_br">🌐 100% Remoto (Brasil)</option>
+            </select>
+          </div>
+
+          <!-- Scan Button -->
+          <div class="sm:col-span-2">
+            <button onclick="triggerScan()" id="btn-scan" class="w-full py-2.5 px-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-brand-600/30 transition">
+              <i data-lucide="refresh-cw" id="icon-refresh" class="w-4 h-4"></i>
+              <span>Varrer Vagas</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Filter Tags & Preferences -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mt-4 pt-4 border-t border-slate-800/80">
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mr-1">Portais & Atalhos:</span>
+            <button onclick="filterPortal('linkedin')" class="px-2.5 py-1 text-xs rounded-lg bg-sky-950/80 hover:bg-sky-900 text-sky-300 border border-sky-800/80 font-bold transition flex items-center gap-1">
+              <i data-lucide="linkedin" class="w-3 h-3 text-sky-400"></i>
+              LinkedIn
+            </button>
+            <button onclick="filterPortal('gupy')" class="px-2.5 py-1 text-xs rounded-lg bg-cyan-950/80 hover:bg-cyan-900 text-cyan-300 border border-cyan-800/80 font-bold transition flex items-center gap-1">
+              <i data-lucide="rocket" class="w-3 h-3 text-cyan-400"></i>
+              Gupy
+            </button>
+            <button onclick="filterPortal('programathor')" class="px-2.5 py-1 text-xs rounded-lg bg-purple-950/80 hover:bg-purple-900 text-purple-300 border border-purple-800/80 font-bold transition flex items-center gap-1">
+              <i data-lucide="code-2" class="w-3 h-3 text-purple-400"></i>
+              Programathor
+            </button>
+            <button onclick="filterBrasilia()" class="px-2.5 py-1 text-xs rounded-lg bg-blue-950/80 hover:bg-blue-900 text-blue-300 border border-blue-800/80 font-bold transition flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3 h-3 text-blue-400"></i>
+              Brasília / DF
+            </button>
+            <button onclick="applyQuickFilter('React')" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">React</button>
+            <button onclick="applyQuickFilter('Node')" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">Node.js</button>
+            <button onclick="applyQuickFilter('Flutter')" class="px-2.5 py-1 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">Flutter</button>
+            <button onclick="clearFilters()" class="px-2.5 py-1 text-xs rounded-lg bg-slate-900 hover:bg-slate-800 text-brand-400 border border-slate-800 transition">Limpar</button>
+          </div>
+
+          <!-- English Option -->
+          <label class="inline-flex items-center gap-2 cursor-pointer text-xs text-slate-300 bg-surface-950 px-3 py-1.5 rounded-lg border border-slate-800 hover:border-slate-700 transition" title="Exclui vagas que exigem inglês fluente ou conversação internacional, mantendo vagas em português com inglês apenas técnico para leitura">
+            <input type="checkbox" id="no-english-checkbox" checked onchange="triggerScan()" class="rounded border-slate-700 text-emerald-500 focus:ring-0 bg-slate-900 w-4 h-4">
+            <span class="font-semibold text-emerald-400 flex items-center gap-1.5">
+              <i data-lucide="check" class="w-3.5 h-3.5"></i>
+              Sem Inglês Fluente Obrigatório
+            </span>
+          </label>
+        </div>
+
+        <!-- ================= ANTI-FILTROS (EXCLUSÕES NEGATIVAS) ================= -->
+        <div class="mt-4 pt-4 border-t border-slate-800/80 bg-red-950/20 -mx-6 -mb-6 p-6 border-b-0 rounded-b-2xl">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-6 h-6 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center border border-red-500/30">
+                <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>
+              </div>
+              <span class="text-xs font-bold uppercase tracking-wider text-red-300">Anti-Filtros Ativos (Excluir Vagas Indesejadas)</span>
+            </div>
+
+            <!-- Anti-Filtro Principal: Bloquear Sênior -->
+            <label class="inline-flex items-center gap-2 cursor-pointer text-xs bg-surface-950 px-3 py-1.5 rounded-xl border border-red-500/40 hover:border-red-500 transition">
+              <input type="checkbox" id="exclude-senior-checkbox" checked onchange="triggerScan()" class="rounded border-red-500/50 text-red-600 focus:ring-0 bg-slate-900 w-4 h-4">
+              <span class="font-bold text-red-400 flex items-center gap-1.5">
+                <i data-lucide="ban" class="w-3.5 h-3.5"></i>
+                Bloquear Vagas para Sênior, Tech Lead & Especialista
+              </span>
+            </label>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+            <div class="relative flex-1">
+              <i data-lucide="slash" class="w-4 h-4 absolute left-3 top-2.5 text-red-400"></i>
+              <input type="text" id="exclude-terms-input" onkeyup="if(event.key==='Enter') triggerScan()" placeholder="Palavras ou tecnologias proibidas separadas por vírgula (ex: java, presencial, php, c#)..."
+                class="w-full pl-9 pr-4 py-2 bg-surface-950 border border-red-900/50 focus:border-red-500 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none transition">
+            </div>
+
+            <button onclick="triggerScan()" class="px-4 py-2 bg-red-950 hover:bg-red-900 text-red-300 border border-red-800 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shrink-0">
+              <i data-lucide="filter-x" class="w-3.5 h-3.5"></i>
+              <span>Aplicar Anti-Filtros</span>
+            </button>
+          </div>
+
+          <!-- Anti-Filter Fast Pills -->
+          <div class="flex flex-wrap items-center gap-1.5 mt-2.5 text-[11px] text-slate-400">
+            <span class="text-slate-500">Adicionar termo proibido:</span>
+            <button onclick="addExcludeTerm('presencial')" class="px-2 py-0.5 rounded bg-surface-950 hover:bg-red-950/60 text-slate-300 hover:text-red-300 border border-slate-800 hover:border-red-800 transition">+ Presencial</button>
+            <button onclick="addExcludeTerm('java')" class="px-2 py-0.5 rounded bg-surface-950 hover:bg-red-950/60 text-slate-300 hover:text-red-300 border border-slate-800 hover:border-red-800 transition">+ Java</button>
+            <button onclick="addExcludeTerm('php')" class="px-2 py-0.5 rounded bg-surface-950 hover:bg-red-950/60 text-slate-300 hover:text-red-300 border border-slate-800 hover:border-red-800 transition">+ PHP</button>
+            <button onclick="addExcludeTerm('.net')" class="px-2 py-0.5 rounded bg-surface-950 hover:bg-red-950/60 text-slate-300 hover:text-red-300 border border-slate-800 hover:border-red-800 transition">+ .NET</button>
+            <button onclick="addExcludeTerm('sap')" class="px-2 py-0.5 rounded bg-surface-950 hover:bg-red-950/60 text-slate-300 hover:text-red-300 border border-slate-800 hover:border-red-800 transition">+ SAP</button>
+            <button onclick="clearExcludeTerms()" class="px-2 py-0.5 rounded bg-surface-950 hover:bg-slate-800 text-red-400 border border-slate-800 transition">Limpar Proibidas</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Count Status -->
+      <div class="flex items-center justify-between text-xs text-slate-400 px-1">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2.5 h-2.5 rounded-full bg-brand-500"></span>
+          <span id="jobs-count-text" class="font-medium text-slate-300">Carregando oportunidades remotas...</span>
+        </div>
+        <span class="text-slate-500">Atualizado com links diretos para cada site</span>
+      </div>
+
+      <!-- Jobs Grid (Layout Corrigido e Alinhado) -->
+      <div id="jobs-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Inserido dinamicamente via JavaScript -->
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 2: ADEQUAR CURRÍCULO (RESUME TAILOR ATS) -->
+    <!-- ======================================================== -->
+    <section id="tab-tailor" class="tab-content hidden space-y-6">
+      
+      <!-- Top Action Bar -->
+      <div class="bg-surface-900 p-5 rounded-2xl border border-slate-800 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <i data-lucide="wand-2" class="w-5 h-5 text-brand-400"></i>
+            Customizador Inteligente de Currículo (ATS Matcher)
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Adapta automaticamente seu objetivo, resumo e prioridade dos projetos reais para a vaga selecionada.
+          </p>
+        </div>
+
+        <!-- Export Buttons Group -->
+        <div class="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
+          <button onclick="generateCustomPdf()" id="btn-download-pdf" class="flex-1 sm:flex-none px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span>Baixar PDF (1 Página Oficial)</span>
+          </button>
+          <button onclick="copyCoverLetter()" class="flex-1 sm:flex-none px-4 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-brand-600/25 transition">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+            <span>Copiar Pitch / Apresentação</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Layout: 2 Columns Side by Side -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Left Column: Job Details & ATS Metrics (5 cols) -->
+        <div class="lg:col-span-5 space-y-5">
+          
+          <!-- Job Form Card -->
+          <div class="bg-surface-900 p-5 rounded-2xl border border-slate-800 space-y-3.5 shadow-lg">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+                <i data-lucide="briefcase" class="w-4 h-4 text-brand-400"></i>
+                Dados da Vaga Alvo
+              </h3>
+              <span id="selected-source-badge" class="text-[10px] text-slate-400 font-mono">Personalizado</span>
+            </div>
+
+            <div class="space-y-3">
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-400 mb-1">Título do Cargo</label>
+                <input type="text" id="target-title" placeholder="Ex: Desenvolvedor Front-end React Júnior"
+                  class="w-full px-3 py-2 bg-surface-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-brand-500 transition">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-400 mb-1">Empresa</label>
+                <input type="text" id="target-company" placeholder="Ex: Tech Company, Startup..."
+                  class="w-full px-3 py-2 bg-surface-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-brand-500 transition">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-400 mb-1">Link Oficial da Vaga</label>
+                <div class="flex gap-2">
+                  <input type="text" id="target-url" placeholder="https://..."
+                    class="w-full px-3 py-2 bg-surface-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-brand-500 transition">
+                  <a id="btn-open-target-url" href="#" target="_blank" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs flex items-center justify-center transition shrink-0" title="Abrir link da vaga">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-semibold text-slate-400 mb-1">Requisitos & Descrição da Vaga</label>
+                <textarea id="target-description" rows="5" placeholder="Cole os requisitos da vaga aqui..."
+                  class="w-full px-3 py-2 bg-surface-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-brand-500 transition"></textarea>
+              </div>
+
+              <button onclick="runTailoring()" id="btn-run-tailoring" class="w-full py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-brand-600/20 transition">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                <span>Reanalisar e Customizar Currículo</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- ATS Match Score Card -->
+          <div class="bg-surface-900 p-5 rounded-2xl border border-slate-800 space-y-3.5 shadow-lg">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Compatibilidade ATS</span>
+              <span id="score-badge" class="px-3 py-0.5 rounded-full text-xs font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">92% Match</span>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+              <div id="score-bar" class="bg-gradient-to-r from-brand-500 to-emerald-400 h-full rounded-full transition-all duration-700" style="width: 92%"></div>
+            </div>
+
+            <p class="text-xs text-slate-400 leading-relaxed" id="score-feedback">
+              Excelente aderência aos requisitos da vaga e stack tecnológica exigida.
+            </p>
+
+            <div class="pt-2 border-t border-slate-800 space-y-2">
+              <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Skills em Destaque na Vaga:</span>
+              <div id="matched-skills-container" class="flex flex-wrap gap-1.5">
+                <!-- Inserido dinamicamente -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Copy Tools -->
+          <div class="bg-surface-900 p-5 rounded-2xl border border-slate-800 space-y-2.5 shadow-lg">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">Formulários & Inscrição</span>
+            
+            <button onclick="copyMarkdownText()" class="w-full px-3.5 py-2.5 rounded-xl bg-surface-950 hover:bg-slate-800 border border-slate-800 flex items-center justify-between text-xs text-slate-300 transition group">
+              <span class="flex items-center gap-2 font-medium">
+                <i data-lucide="file-text" class="w-4 h-4 text-brand-400"></i>
+                Copiar Texto Formatado (p/ Gupy / Formulários)
+              </span>
+              <i data-lucide="copy" class="w-3.5 h-3.5 text-slate-500 group-hover:text-white transition"></i>
+            </button>
+
+            <button onclick="copyCoverLetter()" class="w-full px-3.5 py-2.5 rounded-xl bg-surface-950 hover:bg-slate-800 border border-slate-800 flex items-center justify-between text-xs text-slate-300 transition group">
+              <span class="flex items-center gap-2 font-medium">
+                <i data-lucide="message-square" class="w-4 h-4 text-emerald-400"></i>
+                Copiar Pitch LinkedIn / E-mail de Contato
+              </span>
+              <i data-lucide="copy" class="w-3.5 h-3.5 text-slate-500 group-hover:text-white transition"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Visual Document Preview (7 cols) -->
+        <div class="lg:col-span-7 bg-surface-900 rounded-2xl border border-slate-800 p-5 space-y-4 shadow-xl">
+          
+          <!-- Document Header Bar -->
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+              <span class="text-xs text-slate-400 font-mono ml-2">Visualização do Currículo de 1 Página (ATS-Ready)</span>
+            </div>
+
+            <button onclick="generateCustomPdf()" class="px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 text-xs font-semibold flex items-center gap-1.5 transition">
+              <i data-lucide="download" class="w-3.5 h-3.5"></i>
+              Baixar PDF
+            </button>
+          </div>
+
+          <!-- A4 Paper Visual Container -->
+          <div class="bg-slate-800/60 p-3 sm:p-6 rounded-xl overflow-x-auto">
+            <div id="resume-preview-box" class="a4-sheet bg-white text-slate-900 p-6 sm:p-8 rounded-lg font-sans text-xs leading-relaxed space-y-4 max-w-2xl mx-auto">
+              <!-- Inserido dinamicamente via JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 3: MEU PERFIL MESTRE (BASE DE CONHECIMENTO) -->
+    <!-- ======================================================== -->
+    <section id="tab-profile" class="tab-content hidden space-y-6">
+      
+      <!-- Profile Header -->
+      <div class="bg-surface-900 p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-xl font-black text-white shadow-lg shadow-brand-500/30 shrink-0">
+            DM
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-white" id="prof-name">Davi Marçal Silva Araújo</h2>
+            <p class="text-xs text-brand-400 font-medium" id="prof-headline">Desenvolvedor Full Stack | Ciência da Computação</p>
+            <p class="text-xs text-slate-400 mt-0.5" id="prof-location">Brasília/DF • (61) 99948-7325 • davimarcal200@gmail.com</p>
+          </div>
+        </div>
+
+        <a href="https://github.com/coddeqs" target="_blank" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-semibold text-slate-200 flex items-center gap-2 transition shrink-0">
+          <i data-lucide="github" class="w-4 h-4"></i>
+          <span>Acessar GitHub (coddeqs)</span>
+        </a>
+      </div>
+
+      <!-- Real Projects Grid -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+            <i data-lucide="folder-git-2" class="w-4 h-4 text-brand-400"></i>
+            Projetos Reais & Portfólio Ativo
+          </h3>
+          <span class="text-xs text-slate-500">Mapeados a partir dos seus repositórios locais e GitHub</span>
+        </div>
+
+        <div id="master-projects-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Inserido dinamicamente via JS -->
+        </div>
+      </div>
+
+      <!-- Skills Matrix -->
+      <div class="bg-surface-900 p-6 rounded-2xl border border-slate-800 space-y-4 shadow-xl">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+          <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i>
+          Matriz Consolidada de Habilidades Técnicas
+        </h3>
+
+        <div id="master-skills-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <!-- Inserido dinamicamente via JS -->
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ================= NOTIFICATION TOAST ================= -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 border border-slate-700 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toast-msg" class="text-xs font-medium">Ação realizada!</span>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    let currentProfile = null;
+    let currentJobs = [];
+    let currentTailored = null;
+
+    // Inicialização ao carregar a página
+    document.addEventListener("DOMContentLoaded", async () => {
+      lucide.createIcons();
+      await loadProfile();
+      await triggerScan();
+    });
+
+    // Troca de Abas
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      const target = document.getElementById(tabId);
+      if (target) target.classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-600', 'text-white', 'shadow-md');
+        btn.classList.add('text-slate-400');
+      });
+
+      const activeBtn = document.getElementById('btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-brand-600', 'text-white', 'shadow-md');
+        activeBtn.classList.remove('text-slate-400');
+      }
+      lucide.createIcons();
+    }
+
+    // Carregar Perfil Mestre
+    async function loadProfile() {
+      try {
+        const res = await fetch('/api/profile');
+        currentProfile = await res.json();
+        renderProfileTab();
+      } catch (err) {
+        console.error("Erro ao carregar perfil:", err);
+      }
+    }
+
+    // Renderizar Perfil Mestre na Aba 3
+    function renderProfileTab() {
+      if (!currentProfile) return;
+      document.getElementById('prof-name').innerText = currentProfile.personal.name;
+      document.getElementById('prof-headline').innerText = currentProfile.personal.headline;
+      document.getElementById('prof-location').innerText = `${currentProfile.personal.location} • ${currentProfile.personal.phone} • ${currentProfile.personal.email}`;
+
+      // Projetos
+      const projContainer = document.getElementById('master-projects-container');
+      projContainer.innerHTML = currentProfile.projects.map(p => `
+        <div class="bg-surface-900 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition">
+          <div>
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <h4 class="font-bold text-slate-100 text-sm">${p.name}</h4>
+              <span class="text-[10px] bg-brand-950 text-brand-300 border border-brand-800/80 px-2 py-0.5 rounded-full font-semibold">${p.role}</span>
+            </div>
+            <p class="text-xs text-slate-400 mb-3">${p.category}</p>
+            <div class="flex flex-wrap gap-1 mb-3">
+              ${p.stack.map(s => `<span class="text-[10px] bg-surface-950 text-slate-300 px-2 py-0.5 rounded border border-slate-800">${s}</span>`).join('')}
+            </div>
+            <ul class="text-xs text-slate-300 space-y-1 mb-4 list-disc list-inside">
+              ${p.highlights.slice(0, 2).map(h => `<li class="truncate">${h}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+            <a href="${p.url}" target="_blank" class="text-brand-400 hover:text-brand-300 flex items-center gap-1 font-mono">
+              <i data-lucide="github" class="w-3.5 h-3.5"></i>
+              Ver Código no GitHub
+            </a>
+          </div>
+        </div>
+      `).join('');
+
+      // Matriz de Skills
+      const skillsContainer = document.getElementById('master-skills-container');
+      const cats = currentProfile.skills;
+      skillsContainer.innerHTML = Object.keys(cats).map(catKey => {
+        const catName = catKey.replace(/_/g, ' ').toUpperCase();
+        return `
+          <div class="bg-surface-950 p-4 rounded-xl border border-slate-800">
+            <h5 class="font-bold text-slate-200 text-xs mb-2 border-b border-slate-800 pb-1.5 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
+              ${catName}
+            </h5>
+            <div class="flex flex-wrap gap-1">
+              ${cats[catKey].map(s => `<span class="bg-slate-900 text-slate-300 px-2 py-0.5 rounded text-[11px] border border-slate-800">${s}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // Varredura de Vagas Brasileiras, LinkedIn, Gupy & Brasília com Anti-Filtros
+    async function triggerScan() {
+      const q = document.getElementById('search-input').value;
+      const level = "todos";
+      const portal = document.getElementById('portal-select').value;
+      const location = document.getElementById('location-select').value;
+      const noEnglish = document.getElementById('no-english-checkbox').checked;
+      const excludeSenior = document.getElementById('exclude-senior-checkbox').checked;
+      const excludeTerms = document.getElementById('exclude-terms-input').value.trim();
+      
+      const countEl = document.getElementById('jobs-count-text');
+      const iconRefresh = document.getElementById('icon-refresh');
+      
+      iconRefresh.classList.add('animate-spin');
+      countEl.innerText = "Aplicando filtros e anti-filtros nas vagas...";
+
+      try {
+        const url = `/api/jobs?q=${encodeURIComponent(q)}&level=${level}&location=${location}&portal=${portal}&no_english=${noEnglish}&exclude_senior=${excludeSenior}&exclude_terms=${encodeURIComponent(excludeTerms)}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        currentJobs = data.jobs || [];
+        
+        let statusText = `${currentJobs.length} vagas de desenvolvimento encontradas`;
+        if (excludeSenior) {
+          statusText += " • (Vagas de nível Sênior ocultadas)";
+        }
+        countEl.innerText = statusText;
+        renderJobs(currentJobs);
+      } catch (err) {
+        countEl.innerText = "Erro ao buscar vagas. Tente novamente.";
+        console.error(err);
+      } finally {
+        iconRefresh.classList.remove('animate-spin');
+      }
+    }
+
+    // Adicionar termo proibido ao Anti-Filtro
+    function addExcludeTerm(term) {
+      const input = document.getElementById('exclude-terms-input');
+      const current = input.value.split(',').map(t => t.trim()).filter(Boolean);
+      if (!current.includes(term.toLowerCase())) {
+        current.push(term.toLowerCase());
+        input.value = current.join(', ');
+        triggerScan();
+        showToast(`Termo "${term}" adicionado ao Anti-Filtro!`);
+      }
+    }
+
+    // Limpar termos proibidos
+    function clearExcludeTerms() {
+      document.getElementById('exclude-terms-input').value = '';
+      triggerScan();
+      showToast("Termos proibidos limpos!");
+    }
+
+    // Filtrar por Portal (LinkedIn, Gupy, etc.)
+    function filterPortal(portalName) {
+      document.getElementById('portal-select').value = portalName;
+      triggerScan();
+    }
+
+    // Filtrar especificamente Brasília / DF
+    function filterBrasilia() {
+      document.getElementById('location-select').value = 'brasilia';
+      triggerScan();
+    }
+
+    // Limpar filtros
+    function clearFilters() {
+      document.getElementById('search-input').value = '';
+      document.getElementById('portal-select').value = 'todos';
+      document.getElementById('location-select').value = 'todos';
+      triggerScan();
+    }
+
+    // Renderização dos Cards de Vagas (Elementos Corrigidos e Alinhados)
+    function renderJobs(jobs) {
+      const container = document.getElementById('jobs-container');
+      if (jobs.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-16 text-center text-slate-500 bg-surface-900 rounded-2xl border border-slate-800">
+            <i data-lucide="search-x" class="w-10 h-10 mx-auto mb-3 opacity-40"></i>
+            <p class="text-sm font-medium">Nenhuma vaga encontrada para os filtros selecionados.</p>
+            <p class="text-xs text-slate-600 mt-1">Tente pesquisar termos mais amplos como "React", "Node", "Frontend" ou desmarcar filtros.</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      container.innerHTML = jobs.map((job, idx) => {
+        const isDf = job.is_brasilia || (job.location && job.location.toLowerCase().includes('brasília'));
+        const badgeLocClass = isDf 
+          ? "text-blue-300 bg-blue-950/90 border-blue-700/80 font-bold" 
+          : "text-emerald-400 bg-emerald-950/80 border-emerald-800/60 font-bold";
+        const iconLoc = isDf ? "map-pin" : "globe";
+
+        // Portal badge
+        let portalBadge = `<span class="text-[10px] bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded font-medium">${job.source}</span>`;
+        let portalBtnText = "Ver Vaga";
+        const pLower = (job.portal || job.source || '').toLowerCase();
+        
+        if (pLower.includes('linkedin')) {
+          portalBadge = `<span class="text-[10px] bg-sky-950 text-sky-300 border border-sky-800 px-2 py-0.5 rounded font-bold flex items-center gap-1"><i data-lucide="linkedin" class="w-3 h-3 text-sky-400"></i> LinkedIn</span>`;
+          portalBtnText = "Ver no LinkedIn";
+        } else if (pLower.includes('gupy')) {
+          portalBadge = `<span class="text-[10px] bg-cyan-950 text-cyan-300 border border-cyan-800 px-2 py-0.5 rounded font-bold flex items-center gap-1"><i data-lucide="rocket" class="w-3 h-3 text-cyan-400"></i> Gupy</span>`;
+          portalBtnText = "Candidatar na Gupy";
+        } else if (pLower.includes('programathor')) {
+          portalBadge = `<span class="text-[10px] bg-purple-950 text-purple-300 border border-purple-800 px-2 py-0.5 rounded font-bold flex items-center gap-1"><i data-lucide="code-2" class="w-3 h-3 text-purple-400"></i> Programathor</span>`;
+          portalBtnText = "Ver no Programathor";
+        }
+
+        return `
+        <div class="bg-surface-900 p-5 rounded-2xl border ${isDf ? 'border-blue-700/60 shadow-lg shadow-blue-950/40' : 'border-slate-800'} hover:border-brand-500/50 flex flex-col justify-between transition-all group hover:shadow-xl hover:shadow-brand-500/5">
+          <div>
+            <!-- Header Badges -->
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="text-[10px] uppercase tracking-wider ${badgeLocClass} border px-2.5 py-0.5 rounded-md flex items-center gap-1.5">
+                <i data-lucide="${iconLoc}" class="w-3 h-3"></i>
+                ${job.location || '100% Remoto'}
+              </span>
+
+              ${portalBadge}
+            </div>
+
+            <!-- Job Title -->
+            <h3 class="font-bold text-slate-100 text-sm line-clamp-2 group-hover:text-brand-300 transition mb-1 leading-snug">
+              ${job.title}
+            </h3>
+
+            <!-- Company & Level -->
+            <div class="flex items-center gap-1.5 text-xs text-slate-400 mb-3">
+              <i data-lucide="building-2" class="w-3.5 h-3.5 text-slate-500 shrink-0"></i>
+              <span class="font-medium text-slate-300 truncate">${job.company}</span>
+              <span class="text-slate-600">•</span>
+              <span class="text-brand-400 text-[11px] font-semibold">${job.level}</span>
+            </div>
+
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-1 mb-3.5">
+              <span class="text-[10px] bg-emerald-950/60 text-emerald-400 px-2 py-0.5 rounded border border-emerald-800/40 font-medium">🇧🇷 Português</span>
+              ${(job.tags || []).slice(0, 3).map(t => `<span class="text-[10px] bg-surface-950 text-slate-300 px-2 py-0.5 rounded border border-slate-800">${t}</span>`).join('')}
+            </div>
+
+            <!-- Description Preview -->
+            <p class="text-xs text-slate-400 line-clamp-3 mb-4 leading-relaxed">
+              ${job.description || "Clique para ver os requisitos completos da vaga e adequar seu currículo."}
+            </p>
+          </div>
+
+          <!-- Bottom Action Buttons (Alinhados e com Link Visível) -->
+          <div class="pt-3 border-t border-slate-800 space-y-2">
+            <div class="flex items-center gap-2">
+              <button onclick="selectJobForTailoring(${idx})" class="flex-1 py-2 px-3 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow transition">
+                <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                <span>Adequar Currículo</span>
+              </button>
+
+              <a href="${job.url}" target="_blank" rel="noopener noreferrer" class="py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold flex items-center gap-1.5 border border-slate-700 transition" title="Abrir página oficial da vaga">
+                <i data-lucide="external-link" class="w-3.5 h-3.5 text-brand-400"></i>
+                <span>${portalBtnText}</span>
+              </a>
+            </div>
+
+            <!-- Link Text Explicitly Displayed -->
+            <div class="flex items-center justify-between text-[11px] text-slate-500 px-1">
+              <a href="${job.url}" target="_blank" class="truncate hover:text-brand-400 hover:underline max-w-[200px]">
+                ${job.url}
+              </a>
+              <button onclick="copyToClipboard('${job.url}', 'Link da vaga copiado!')" class="hover:text-slate-300 transition" title="Copiar link da vaga">
+                <i data-lucide="copy" class="w-3 h-3"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // Filtros rápidos
+    function applyQuickFilter(term) {
+      document.getElementById('search-input').value = term;
+      triggerScan();
+    }
+
+    // Selecionar Vaga para Adequação
+    function selectJobForTailoring(idx) {
+      const job = currentJobs[idx];
+      if (!job) return;
+
+      document.getElementById('target-title').value = job.title;
+      document.getElementById('target-company').value = job.company;
+      document.getElementById('target-url').value = job.url;
+      document.getElementById('btn-open-target-url').href = job.url;
+      document.getElementById('selected-source-badge').innerText = job.source;
+      document.getElementById('target-description').value = `${job.title}\n${job.description}`;
+
+      switchTab('tab-tailor');
+      runTailoring();
+    }
+
+    // Executar Adequação de Currículo
+    async function runTailoring() {
+      const title = document.getElementById('target-title').value;
+      const company = document.getElementById('target-company').value;
+      const desc = document.getElementById('target-description').value;
+      const url = document.getElementById('target-url').value;
+
+      if (!title.trim()) {
+        showToast("Por favor, informe o cargo da vaga.");
+        return;
+      }
+
+      document.getElementById('btn-open-target-url').href = url || "#";
+
+      const btn = document.getElementById('btn-run-tailoring');
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Analisando vaga...</span>`;
+      lucide.createIcons();
+
+      try {
+        const res = await fetch('/api/tailor', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            job_title: title,
+            job_company: company,
+            job_description: desc
+          })
+        });
+
+        currentTailored = await res.json();
+        renderTailoredPreview(currentTailored);
+        showToast("Currículo otimizado com sucesso para a vaga!");
+      } catch (err) {
+        console.error(err);
+        showToast("Erro ao otimizar currículo.");
+      } finally {
+        btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4"></i><span>Reanalisar e Customizar Currículo</span>`;
+        lucide.createIcons();
+      }
+    }
+
+    // Renderizar Documento na Tela
+    function renderTailoredPreview(t) {
+      // Score
+      const score = t.match_score || 88;
+      document.getElementById('score-badge').innerText = `${score}% Match`;
+      document.getElementById('score-bar').style.width = `${score}%`;
+
+      // Skills Tags
+      const skillsContainer = document.getElementById('matched-skills-container');
+      skillsContainer.innerHTML = (t.matched_skills || []).map(s => `
+        <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+          <i data-lucide="check" class="w-3 h-3"></i>
+          ${s}
+        </span>
+      `).join('') + (t.missing_skills || []).map(s => `
+        <span class="px-2.5 py-1 rounded-lg text-[11px] bg-slate-800 text-slate-400 border border-slate-700">
+          ${s} (secundária)
+        </span>
+      `).join('');
+
+      // Preview A4
+      const preview = document.getElementById('resume-preview-box');
+      preview.innerHTML = `
+        <!-- Cabeçalho -->
+        <div class="border-b border-slate-300 pb-3">
+          <h1 class="text-xl font-bold tracking-tight text-slate-900 leading-tight">${t.personal.name.toUpperCase()}</h1>
+          <p class="text-blue-700 font-bold text-xs mt-0.5">${t.tailored_headline}</p>
+          <p class="text-slate-500 text-[10px] mt-1">
+            ${t.personal.location}  •  ${t.personal.phone}  •  ${t.personal.email}  •  GitHub: ${t.personal.github}  •  18 anos
+          </p>
+        </div>
+
+        <!-- Resumo -->
+        <div>
+          <h2 class="text-[11px] font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200 pb-0.5 mb-1.5">Resumo Profissional</h2>
+          <p class="text-slate-700 text-[11px] leading-relaxed text-justify">${t.tailored_summary}</p>
+        </div>
+
+        <!-- Habilidades -->
+        <div>
+          <h2 class="text-[11px] font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200 pb-0.5 mb-1.5">Habilidades e Competências Técnicas</h2>
+          <div class="text-[10px] space-y-1 text-slate-700">
+            <p><b>• Frontend & Web:</b> ${t.tailored_skills.frontend ? t.tailored_skills.frontend.slice(0, 9).join(', ') : ''}</p>
+            <p><b>• Backend, APIs & Integrações:</b> ${t.tailored_skills.backend_and_apis ? t.tailored_skills.backend_and_apis.slice(0, 8).join(', ') : ''}</p>
+            <p><b>• Mobile & IA Generativa:</b> ${(t.tailored_skills.mobile || []).join(', ')}  |  ${(t.tailored_skills.ai_and_data || []).join(', ')}</p>
+            <p><b>• Ferramentas & Metodologias:</b> ${(t.tailored_skills.devops_and_tools || []).slice(0, 7).join(', ')}</p>
+          </div>
+        </div>
+
+        <!-- Projetos Ranqueados (Enxutos) -->
+        <div>
+          <h2 class="text-[11px] font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200 pb-0.5 mb-1.5">Projetos de Desenvolvimento</h2>
+          <div class="space-y-1.5">
+            ${t.ranked_projects.slice(0, 3).map(proj => `
+              <div class="text-[10px] text-slate-700">
+                <span class="font-bold text-slate-900">${proj.name}</span> (${proj.stack.slice(0, 4).join(', ')}) — ${proj.highlights[0] || ''} <span class="text-blue-700 font-mono">[${proj.url}]</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Experiência Profissional -->
+        <div>
+          <h2 class="text-[11px] font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200 pb-0.5 mb-1.5">Experiência Profissional</h2>
+          <div class="space-y-2">
+            ${(t.experience || []).slice(0, 4).map(exp => `
+              <div>
+                <p class="text-[10px] font-bold text-slate-900">${exp.role} — <span class="font-normal">${exp.company}</span> <span class="text-slate-500 font-normal">(${exp.period} | ${exp.location})</span></p>
+                <p class="text-[10px] text-slate-600">${exp.description}</p>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Formação, Certificações e Idiomas -->
+        <div>
+          <h2 class="text-[11px] font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200 pb-0.5 mb-1.5">Formação Acadêmica, Certificações & Idiomas</h2>
+          <div class="text-[10px] text-slate-700 leading-snug">
+            ${t.education.slice(0, 1).map(e => `<p><b>${e.degree}</b> – ${e.institution} (${e.period})</p>`).join('')}
+            ${(t.certifications && t.certifications.length) ? `<p class="mt-0.5"><b>Certificações:</b> ${t.certifications.join(' | ')}</p>` : ''}
+            <p class="mt-0.5">${t.languages.map(l => `<b>${l.name}:</b> ${l.level}`).join('  •  ')}</p>
+          </div>
+        </div>
+      `;
+
+      lucide.createIcons();
+    }
+
+    // Baixar PDF Oficial
+    async function generateCustomPdf() {
+      if (!currentTailored) {
+        showToast("Otimize o currículo primeiro.");
+        return;
+      }
+      const desc = document.getElementById('target-description').value || "";
+      showToast("Gerando PDF oficial de 1 página...");
+      try {
+        const res = await fetch('/api/generate-pdf', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            job_title: currentTailored.job_title,
+            job_company: currentTailored.job_company,
+            job_description: desc
+          })
+        });
+        const data = await res.json();
+        if (data.download_url) {
+          window.open(data.download_url, '_blank');
+          showToast("PDF baixado com sucesso!");
+        }
+      } catch (e) {
+        showToast("Erro ao gerar PDF.");
+      }
+    }
+
+    // Copiar Pitch LinkedIn
+    function copyCoverLetter() {
+      if (!currentTailored || !currentTailored.cover_letter) {
+        showToast("Gere a customização primeiro.");
+        return;
+      }
+      navigator.clipboard.writeText(currentTailored.cover_letter);
+      showToast("Pitch copiado para a área de transferência!");
+    }
+
+    // Copiar Texto Formatado
+    async function copyMarkdownText() {
+      if (!currentTailored) {
+        showToast("Gere a customização primeiro.");
+        return;
+      }
+      const desc = document.getElementById('target-description').value || "";
+      try {
+        const res = await fetch('/api/generate-markdown', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            job_title: currentTailored.job_title,
+            job_company: currentTailored.job_company,
+            job_description: desc
+          })
+        });
+        const data = await res.json();
+        navigator.clipboard.writeText(data.markdown);
+        showToast("Texto formatado copiado para a área de transferência!");
+      } catch (e) {
+        showToast("Erro ao copiar texto.");
+      }
+    }
+
+    // Auxiliar de cópia
+    function copyToClipboard(text, successMsg) {
+      navigator.clipboard.writeText(text);
+      showToast(successMsg);
+    }
+
+    // Toast de notificação
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
